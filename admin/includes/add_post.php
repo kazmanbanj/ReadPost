@@ -1,20 +1,20 @@
 <?php
 
 if(isset($_POST['create_post'])) {
-    $post_category_id = $_POST['post_category_id'];
-    $post_title = $_POST['title'];
-    $post_author = $_POST['author'];
+    $post_category_id = escape($_POST['post_category']);
+    $post_title = escape($_POST['title']);
+    $post_author = escape($_POST['author']);
     $post_date = date('d-m-y');
 
-    $post_image = $_FILES['image']['name'];
-    $post_image_temp = $_FILES['image']['tmp_name'];
+    $post_image = escape($_FILES['image']['name']);
+    $post_image_temp = escape($_FILES['image']['tmp_name']);
 
-    $post_content = $_POST['post_content'];
-    $post_tags = $_POST['post_tags'];
+    $post_content = escape($_POST['post_content']);
+    $post_tags = escape($_POST['post_tags']);
     $post_comment_count = 4;
-    $post_status = $_POST['post_status'];
+    $post_status = escape($_POST['post_status']);
 
-    move_uploaded_file($post_image_temp, "images/$post_image");
+    move_uploaded_file($post_image_temp, "../images/$post_image");
 
     $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_comment_count, post_status) ";
     $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_author}', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_comment_count}', '{$post_status}' ) ";
@@ -33,8 +33,20 @@ if(isset($_POST['create_post'])) {
     </div>
 
     <div class="form-group">
-        <label for="post_category_id">Post Category Id</label>
-        <input type="text" class="form-control" name="post_category_id">
+        <label for="post_category">Category</label>
+        <select name="post_category" id="">
+            <?php
+                $query = "SELECT * FROM categories";
+                $select_post_category = mysqli_query($connection, $query);
+                confirmQuery($select_post_category);
+                while($row = mysqli_fetch_assoc($select_post_category)) {
+                $cat_id = escape($row['cat_id']);
+                $cat_title = escape($row['cat_title']);
+
+                echo "<option value='{$cat_id}'>$cat_title</option>";
+                }
+            ?>
+        </select>
     </div>
 
     <!-- <div class="form-group">

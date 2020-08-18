@@ -1,5 +1,10 @@
 <?php 
 
+function escape($string) {
+    global $connection;
+    return mysqli_real_escape_string($connection, trim($string));
+}
+
 function confirmQuery($result) {
     global $connection;
     if(!$result) {
@@ -10,7 +15,7 @@ function confirmQuery($result) {
 function insert_categories() {
     global $connection;
     if(isset($_POST['submit'])) {
-        $cat_title = $_POST['cat_title'];
+        $cat_title = escape($_POST['cat_title']);
         if($cat_title == "" || empty($cat_title)) {
             echo "This field should not be empty";
         } else {
@@ -29,7 +34,7 @@ function insert_categories() {
 function update_categories() {
     global $connection;
     if(isset($_GET['edit'])) {
-        $cat_id = $_GET['edit'];
+        $cat_id = escape($_GET['edit']);
         include "includes/update_categories.php";
     }
 }
@@ -39,8 +44,8 @@ function findAllCategories() {
     $query = "SELECT * FROM categories";
     $select_categories = mysqli_query($connection, $query);
     while($row = mysqli_fetch_assoc($select_categories)) {
-        $cat_id = $row['cat_id'];
-        $cat_title = $row['cat_title'];
+        $cat_id = escape($row['cat_id']);
+        $cat_title = escape($row['cat_title']);
 
         echo "<tr>";
         echo "<td>{$cat_id}</td>";
@@ -54,7 +59,7 @@ function findAllCategories() {
 function deleteCategory() {
     global $connection;
     if(isset($_GET['delete'])) {
-        $the_cat_id = $_GET['delete'];
+        $the_cat_id = escape($_GET['delete']);
         $query = "DELETE FROM categories WHERE cat_id = {$the_cat_id}";
         $delete_query = mysqli_query($connection, $query);
         header("Location: categories.php");
