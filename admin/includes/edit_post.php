@@ -36,9 +36,9 @@ if(isset($_POST['update_post']))  {
 
     if(empty($post_image)) {
         $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
-        $select_image = mysqli_query($connection, $query);
+        $select_post_image = mysqli_query($connection, $query);
 
-        while($row = mysqli_fetch_array($select_image)) {
+        while($row = mysqli_fetch_array($select_post_image)) {
             $post_image = $row['post_image'];
         }
     }
@@ -129,6 +129,6 @@ if(isset($_POST['update_post']))  {
     </div>
 
     <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="update_post" value="Publish Post">
+        <input class="btn btn-primary" type="submit" name="update_post" value="Update Post">
     </div>
 </form>

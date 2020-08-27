@@ -25,7 +25,7 @@
                         $post_status = $row['post_status'];
 
                         if($post_status !== 'published') {
-                            echo "<h1 class='text-center'>NO POST YET</h1>";
+                            // echo "<h1 class='text-center'>NO POST YET</h1>";
                         } else {
 
                         ?>
