@@ -49,7 +49,8 @@ body {
 }
 
 .top-nav>li {
-    display: inline-block;
+    /* display: inline-block; */
+    display: block;
     float: left;
 }
 
@@ -221,4 +222,8 @@ ul.alert-dropdown {
 
 .panel-yellow a:hover {
     color: #df8a13;
+}
+
+#bulkOptionContainer {
+    padding: 0px;
 }
