@@ -3,6 +3,7 @@
 if(isset($_GET['edit_user'])) {
     $the_user_id = $_GET['edit_user'];
 
+    // fetching the user details from db
     $query = "SELECT * FROM users WHERE user_id = $the_user_id ";
     $select_users_query = mysqli_query($connection, $query);
     while($row = mysqli_fetch_assoc($select_users_query)) {
@@ -17,6 +18,7 @@ if(isset($_GET['edit_user'])) {
     }
 }
 
+// updating and posting the edit user data
 if(isset($_POST['edit_user'])) {
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
@@ -30,6 +32,16 @@ if(isset($_POST['edit_user'])) {
     $user_password = $_POST['user_password'];
 
     // move_uploaded_file($post_image_temp, "../images/$post_image");
+
+    // this to edit the password and encrypt it in db
+    $query = "SELECT randSalt FROM users";
+    $select_randsalt_query = mysqli_query($connection, $query);
+    if(!$select_randsalt_query) {
+        die("Query Failed" . mysqli_error($connection));
+    }
+    $row = mysqli_fetch_array($select_randsalt_query);
+    $salt = $row['randSalt'];
+    $hashed_password = crypt($user_password, $salt);
 
     // if(empty($post_image)) {
     //     $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
@@ -47,7 +59,7 @@ if(isset($_POST['edit_user'])) {
     $query .= "user_role = '{$user_role}', ";
     $query .= "username = '{$username}', ";
     $query .= "user_email = '{$user_email}', ";
-    $query .= "user_password = '{$user_password}' ";
+    $query .= "user_password = '{$hashed_password}' ";
     $query .= "WHERE user_id = {$the_user_id}";
 
     $edit_user_query = mysqli_query($connection, $query);
