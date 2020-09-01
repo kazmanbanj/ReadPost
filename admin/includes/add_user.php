@@ -14,8 +14,24 @@ if(isset($_POST['create_user'])) {
 
     // move_uploaded_file($post_image_temp, "../images/$post_image");
 
+    // another way of encrypting the password 
+    // $password = password_hash('$user_password', PASSWORD_BCRYPT, array('cost' => 12) );       OR
+
+    $query = "SELECT randSalt from users";
+    $select_randsalt_query = mysqli_query($connection, $query);
+    if(!$select_randsalt_query) {
+        die("Query Failed" . mysql_error($connection));
+    }
+
+    // just fetching a single row. so no need for while loop
+    $row = mysqli_fetch_array($select_randsalt_query);
+    $salt = $row['randSalt'];
+
+    // password cryting
+    $password = crypt($user_password, $salt);
+
     $query = "INSERT INTO users(user_firstname, user_lastname, user_role, username, user_email, user_password) ";
-    $query .= "VALUES('{$user_firstname}', '{$user_lastname}', '{$user_role}', '{$username}', '{$user_email}', '{$user_password}' ) ";
+    $query .= "VALUES('{$user_firstname}', '{$user_lastname}', '{$user_role}', '{$username}', '{$user_email}', '{$password}' ) ";
 
     $create_user_query = mysqli_query($connection, $query);
 

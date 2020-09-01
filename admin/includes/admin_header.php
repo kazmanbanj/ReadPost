@@ -1,5 +1,5 @@
-<?php include "../includes/db.php" ?>
 <?php ob_start(); ?>
+<?php include "../includes/db.php" ?>
 <?php session_start(); ?>
 <?php
 
@@ -30,6 +30,8 @@ if(!isset($_SESSION['user_role'])) {
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet" type="text/css">
+
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">

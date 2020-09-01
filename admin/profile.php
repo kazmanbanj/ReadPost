@@ -34,6 +34,16 @@ if(isset($_SESSION['username'])) {
         $user_email = $_POST['user_email'];
         $user_password = $_POST['user_password'];
 
+        // this to edit the password and encrypt it in db
+        $query = "SELECT randSalt FROM users";
+        $select_randsalt_query = mysqli_query($connection, $query);
+        if(!$select_randsalt_query) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($select_randsalt_query);
+        $salt = $row['randSalt'];
+        $hashed_password = crypt($user_password, $salt);
+
         // move_uploaded_file($post_image_temp, "../images/$post_image");
 
         // if(empty($post_image)) {
@@ -52,7 +62,7 @@ if(isset($_SESSION['username'])) {
         $query .= "user_role = '{$user_role}', ";
         $query .= "username = '{$username}', ";
         $query .= "user_email = '{$user_email}', ";
-        $query .= "user_password = '{$user_password}' ";
+        $query .= "user_password = '{$hashed_password}' ";
         $query .= "WHERE username = '{$username}' ";
 
         $edit_user_query = mysqli_query($connection, $query);
@@ -88,18 +98,22 @@ if(isset($_SESSION['username'])) {
 
                         <div class="form-group">
                             <label for="user_role">Role</label>
+                            <input type="text" name="user_role" id="" value="<?php echo $user_role; ?>">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="user_role">Role</label>
                             <select name="user_role" id="">
-                                <option value="subscriber"><?php echo $user_role; ?></option>
+                                <option value="subscriber"><?php //echo $user_role; ?></option>
 
                                 <?php
-                                if(!$user_role == 'admin') {
-                                    echo "<option value='subscriber'>subscriber</option>";
-                                } else {
-                                    echo "<option value='admin'>admin</option>";
-                                }
+                                // if($user_role == 'admin') {
+                                //     echo "<option value='subscriber'>subscriber</option>";
+                                // } else {
+                                //     echo "<option value='admin'>admin</option>";
+                                // }
                                 ?>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -113,14 +127,13 @@ if(isset($_SESSION['username'])) {
                         </div>
 
                         <div class="form-group">
-                            <label for="user_password">Password</label>
-                            <input type="password" value="<?php echo $user_password; ?>" class="form-control"
-                                name="user_password">
-                        </div>
-
-                        <div class="form-group">
                             <input class="btn btn-primary" type="submit" name="edit_user" value="Update Profile">
                         </div>
+
+                        <!-- try later -->
+                        <!-- <div class="form-group">
+                            <button class='btn' type="submit"><a href="users.php?source=edit_user&edit_user={$user_id}">Edit</a></button>
+                        </div> -->
                     </form>
                 </div>
             </div>

@@ -11,10 +11,37 @@
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
+        <?php
+            // to know users who are online
+            $session = session_id();
+            date_default_timezone_set('Africa/Lagos');
+            $date = date('l jS \of F Y h:i:s A');
+            $time = time();
+            $time_out_in_seconds = 5;
+            $time_out = $time - $time_out_in_seconds;
+
+            $query = "SELECT * FROM users_online WHERE session = '$session'";
+            $send_query = mysqli_query($connection, $query);
+            $count = mysqli_num_rows($send_query);
+
+            if($count == NULL) {
+                mysqli_query($connection, "INSERT INTO users_online(session, date, time) VALUES('$session', now(), '$time')");
+            } else {
+                mysqli_query($connection, "UPDATE users_online SET time = '$time' WHERE session = '$session'");
+            }
+
+            $users_online_query = mysqli_query($connection, "SELECT * FROM users_online WHERE time > '$time_out'");
+            $count_user = mysqli_num_rows($users_online_query);
+        ?>
+        <!-- the php code above for active online users without instant -->
+        <!-- <li><a href="http://">Users Online: <?php //echo $count_user; ?></a></li> -->
+
+        <!-- this for instant online users -->
+        <li><a href="http://">Users Online: <span class="usersonline"></span></a></li>
         <li><a href="../index.php">Home</a></li>
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['firstname']; ?> <?php echo $_SESSION['lastname']; ?> <b
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['username']; ?> <b
                     class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
