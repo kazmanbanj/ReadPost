@@ -20,11 +20,24 @@
                 // to get post view counts
                 $view_query = "UPDATE posts SET post_view_counts = post_view_counts + 1 WHERE post_id = $the_post_id";
                 $send_query = mysqli_query($connection, $view_query);
+                if (!$send_query) {
+                    die("query failed!!!");
+                }
+
+                // to display draft posts only for logged in admins
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
+                } else {
+                    $query = "SELECT * FROM posts WHERE post_id = $the_post_id AND post_status = 'published' ";
+                }
                 
-                $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
                 $select_all_posts_query = mysqli_query($connection, $query);
+                if (mysqli_num_rows($select_all_posts_query) < 1) {
+                    echo "<h1 class='text-center'>NO POST AVAILABLE FOR THIS CATEGORY YET</h1>";
+                } else {
 
                     while($row = mysqli_fetch_assoc($select_all_posts_query)) {
+                        $post_id = $row['post_id'];
                         $post_title = $row['post_title'];
                         $post_author = $row['post_user'];
                         $post_date = $row['post_date'];
@@ -35,8 +48,7 @@
                         ?>
 
                 <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    Posts
                 </h1>
 
                 <!-- First Blog Post -->
@@ -44,7 +56,7 @@
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on: <?php echo $post_date; ?> </p>
                 <p><?php echo "$post_view_counts"; ?> views</p>
@@ -67,10 +79,6 @@
                 ?>
 
                 <?php }
-                
-                } else {
-                    header("Location: index.php");
-                }
                 
                 ?>
 
@@ -154,7 +162,10 @@
                     </div>
                 </div>
 
-                <?php } ?>
+                <?php } } } else {
+                    header("Location: index.php");
+                }
+                ?>
 
                 <!-- Comment -->               
 

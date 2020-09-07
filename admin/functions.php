@@ -1,10 +1,12 @@
 <?php 
 
+// to escape any string going into the db
 function escape($string) {
     global $connection;
     return mysqli_real_escape_string($connection, trim($string));
 }
 
+// to know counts of users who are online
 function users_online()
 {
     // to load instant users online
@@ -41,6 +43,7 @@ function users_online()
 }
 users_online();
 
+// this is used to detect any failed query
 function confirmQuery($result) {
     global $connection;
     if(!$result) {
@@ -48,6 +51,7 @@ function confirmQuery($result) {
     }
 }
 
+// this is used to insert a data in the db
 function insert_categories() {
     global $connection;
     if(isset($_POST['submit'])) {
@@ -67,6 +71,7 @@ function insert_categories() {
     }
 };
 
+// this is used to update data in the db
 function update_categories() {
     global $connection;
     if(isset($_GET['edit'])) {
@@ -75,6 +80,7 @@ function update_categories() {
     }
 }
 
+// this is used to find data from the database
 function findAllCategories() {
     global $connection;
     $query = "SELECT * FROM categories";
@@ -92,6 +98,7 @@ function findAllCategories() {
     }
 }
 
+// this is used to delete a data
 function deleteCategory() {
     global $connection;
     if(isset($_GET['delete'])) {
@@ -100,6 +107,35 @@ function deleteCategory() {
         $delete_query = mysqli_query($connection, $query);
         header("Location: categories.php");
     }
+}
+
+// refactoring the admin index code to count data records
+function recordCount($table)
+{
+    global $connection;
+    $query = "SELECT * FROM " . $table;
+    $select_all_post = mysqli_query($connection, $query);
+
+    $result = mysqli_num_rows($select_all_post);
+    confirmQuery($result);
+    return $result;
+}
+
+// refactoring the dynamic data in the admin bar chart code
+function checkStatus($table, $column, $status)
+{
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $column = '$status' ";
+    $result = mysqli_query($connection, $query);
+    return mysqli_num_rows($result);
+}
+
+function checkUserRole($table, $column, $role)
+{
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $column = '$role' ";
+    $result = mysqli_query($connection, $query);
+    return mysqli_num_rows($result);
 }
 
 ?>

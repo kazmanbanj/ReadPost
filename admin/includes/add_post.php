@@ -11,7 +11,12 @@ if(isset($_POST['create_post'])) {
     $post_image_temp = $_FILES['image']['tmp_name'];
 
     $post_content = $_POST['post_content'];
+
     $post_tags = $_POST['post_tags'];
+    if (empty($post_tags)) {
+        $post_tags = "No tags";
+    }
+
     // $post_comment_count = 4;
     $post_status = $_POST['post_status'];
 

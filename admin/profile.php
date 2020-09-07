@@ -1,5 +1,5 @@
 <?php include "includes/admin_header.php" ?>
-<?php include "functions.php" ?>
+<?php //include "functions.php" ?>
 
 <!-- to fetch the user details and display them for an update -->
 <?php
