@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Start Bootstrap</a>
+                <a class="navbar-brand" href="/readpost">READPOST</a>
             </div>
             <!-- fetching the nav links -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,36 +33,31 @@
                         $registration_class = 'active';
                     }
 
-                        echo "<li class='$category_class'><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
+                        echo "<li class='$category_class'><a href='/readpost/category/$cat_id'>{$cat_title}</a></li>";
                     }
-                    ?>
+                    ?>                    
                     <li>
-                        <a href="admin">Admin</a>
-                    </li>
-                    <li class="<?php echo '$registration_class'; ?>">
-                        <a href="registration.php">Register</a>
-                    </li>
-                    <li>
-                        <a href="contact.php">Contact</a>
-                    </li>
+                        <a href="/readpost/contact">Contact</a>
+                    </li> 
 
-                    <?php
-                        // session_start();
-                        if(isset($_SESSION['user_role'])) {
-                            if(isset($_GET['p_id'])) {
-                                $the_post_id = $_GET['p_id'];
-                                // echo "<li><a href='admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit post</a></li>";
-                                echo "<li><a href='admin'>Welcome, {$_SESSION['firstname']}</a></li>";
-                            }
-                        }
-                    ?>
-
-                    <!-- <li>
-                        <a href="#">Services</a>
-                    </li> -->
-                    <!-- <li>
-                        <a href="#">Contact</a>
-                    </li> -->
+                    <?php if (isLoggedIn()): ?>
+                        <li>
+                            <a href="/readpost/admin">Admin</a>
+                        </li>
+                        <li>
+                            <a href="/readpost/includes/logout.php">Logout</a>
+                        </li>
+                        <li>
+                            <a href='/readpost/admin'>Welcome, <?php echo $_SESSION["username"]; ?></a>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <a href="/readpost/login">Login</a>
+                        </li>
+                        <li class="<?php echo '$registration_class'; ?>">
+                            <a href="/readpost/registration">Register</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -1,8 +1,21 @@
+<!-- to log in users from the sidebar -->
+<?php
+    if(ifItIsMethod('post')){
+        if(isset($_POST['login'])){
+            if(isset($_POST['username']) && isset($_POST['password'])){
+                login_user($_POST['username'], $_POST['password']);
+            }else {
+                redirect('index');
+            }
+        }
+    }
+?>
+
 <div class="col-md-4">
     <!-- Blog Search Well -->
     <div class="well">
         <h4>Blog Search</h4>
-        <form action="search.php" method="post">
+        <form action="/readpost/search.php" method="post">
         <div class="input-group">
             <input name="search" type="text" class="form-control">
             <span class="input-group-btn">
@@ -19,10 +32,10 @@
     <div class="well">
         <?php if(isset($_SESSION['user_role'])): ?>
             <h4>Logged in as <?php echo $_SESSION['username']; ?></h4>
-            <a href="includes/logout.php" class="btn btn-primary">Logout</a>
+            <a href="/readpost/includes/logout.php" class="btn btn-primary">Logout</a>
         <?php else: ?>
             <h4>Login</h4>
-            <form action="includes/login.php" method="post">
+            <form method="post">
             <div class="form-group">
                 <input name="username" type="text" class="form-control" placeholder="Enter username">
             </div>
@@ -33,6 +46,9 @@
                         Submit
                     </button>
                 </span>
+            </div>
+            <div class="form-group">
+                <a href="forgotpassword.php?forgot=<?php echo uniqid(true); ?>">Forgot Password</a>
             </div>
             </form>
         <?php endif; ?>

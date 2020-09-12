@@ -10,16 +10,12 @@ if (isset($_POST['submit'])) {
     $subject = wordwrap($_POST['subject'], 70);
     $body = $_POST['body'];
     $header = "From: " . $_POST['email'];
-
     mail($to, $subject, $body, $header);
 }
 ?>
 
-
-    <!-- Navigation -->
-    
-    <?php  include "includes/nav.php"; ?>
-    
+    <!-- Navigation -->    
+    <?php  include "includes/nav.php"; ?>    
  
     <!-- Page Content -->
     <div class="container">
@@ -44,17 +40,11 @@ if (isset($_POST['submit'])) {
                         </div>
                 
                         <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Submit">
-                    </form>
-                 
+                    </form>                 
                 </div>
             </div> <!-- /.col-xs-12 -->
         </div> <!-- /.row -->
     </div> <!-- /.container -->
 </section>
-
-
-        <hr>
-
-
-
+<hr>
 <?php include "includes/footer.php";?>

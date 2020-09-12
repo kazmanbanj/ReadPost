@@ -4,6 +4,50 @@
     <!-- Navigation -->
 <?php include "includes/nav.php"; ?>
 
+<?php
+// Query For The Like Button
+if(isset($_POST['liked'])) {
+    // 0 - TEST
+    // echo "Liked";
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    // 1 - SELECT POST
+    $query = "SELECT * FROM posts WHERE post_id = $post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    // 2 - UPDATING WITH INCREASING POSTS WITH LIKES
+    mysqli_query($connection, "UPDATE posts SET likes = $likes+1 WHERE post_id = $post_id");
+
+    // 3 - CREATING LIKES FOR POST
+    mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
+    exit();
+}
+
+// Query For The Unlike Button
+if(isset($_POST['unliked'])) {
+    // 0 - TEST
+    // echo "Unliked";
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    // 1 - SELECT POST
+    $query = "SELECT * FROM posts WHERE post_id = $post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    // 2 - DELETING LIKES
+    mysqli_query($connection, "DELETE FROM likes WHERE post_id = $post_id AND user_id = $user_id");
+
+    // 3 - UPDATING WITH DECREASING POSTS WITH LIKES
+    mysqli_query($connection, "UPDATE posts SET likes = $likes-1 WHERE post_id = $post_id");
+    exit();
+}
+?>
+
     <!-- Page Content -->
     <div class="container">
 
@@ -53,35 +97,38 @@
 
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="#"><?php echo $post_title; ?></a>
+                    <a href="/readpost/post/<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                    by <a href="/readpost/author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on: <?php echo $post_date; ?> </p>
                 <p><?php echo "$post_view_counts"; ?> views</p>
                 <hr>
-                <img width="250" class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                <img width="250" class="img-responsive" src="/readpost/images/<?php echo $post_image; ?>" alt="">
                 <hr>
                 <p><?php echo $post_content; ?></p>
                 <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
 
                 <hr>
-                <!-- to edit the post on the post view -->
-                <?php
-                    if(isset($_SESSION['user_role'])) {
-                        if(isset($_GET['p_id'])) {
-                            $the_post_id = $_GET['p_id'];
-                            echo "<b><a href='admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit post</a></b>";
-                            echo "<hr>";
+                    <!-- to edit the post on the post view -->
+                    <?php
+                        if(isset($_SESSION['user_role'])) {
+                            if(isset($_GET['p_id'])) {
+                                $the_post_id = $_GET['p_id'];
+                                echo "<b><a href='/readpost/admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit &nbsp;</a> &nbsp;&nbsp;" ;
+                            }
                         }
-                    }
-                ?>
+                    ?>
 
-                <?php }
-                
-                ?>
+                    <?php } ?>
 
+                    <!-- for the like button -->
+                    <b><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like </a></b>
+                    <b><a class="unlike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span> Unlike </a></b>
+                    <b>(10 Likes)</b>
+
+                    <hr>
                 <!-- Blog Comments -->
                 <?php
                     if (isset($_POST['create_comment'])) {
@@ -161,22 +208,49 @@
                         <?php echo $comment_content; ?>
                     </div>
                 </div>
-
                 <?php } } } else {
                     header("Location: index.php");
                 }
                 ?>
-
                 <!-- Comment -->               
-
             </div>
-
             <!-- Blog Sidebar Widgets Column -->
             <?php include "includes/sidebar.php"; ?>
-
         </div>
         <!-- /.row -->
-
         <hr>
-
 <?php include "includes/footer.php"; ?>
+
+<script>
+// jquery script with ajax for the like button
+$(document).ready(function() {
+    var post_id = <?php echo $the_post_id; ?>;
+    var user_id = 54;
+
+    // LIKING
+    $('.like').click(function() {
+        $.ajax({
+            url: "/readpost/post.php?p_id=<?php echo $the_post_id; ?>",
+            type: 'post',
+            data: {
+                'liked': 1,
+                'post_id': post_id,
+                'user_id': user_id
+            }
+        });
+    });
+
+    // UNLIKING
+    $('.unlike').click(function() {
+        $.ajax({
+            url: "/readpost/post.php?p_id=<?php echo $the_post_id; ?>",
+            type: 'post',
+            data: {
+                'unliked': 1,
+                'post_id': post_id,
+                'user_id': user_id
+            }
+        });
+    });
+});
+</script>

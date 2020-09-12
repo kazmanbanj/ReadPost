@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.php">ReadPost Admin</a>
+        <a class="navbar-brand" href="/readpost">ReadPost Admin</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
@@ -38,7 +38,7 @@
 
         <!-- this for instant online users -->
         <li><a href="http://">Users Online: <span class="usersonline"></span></a></li>
-        <li><a href="../index.php">Home</a></li>
+        <li><a href="/readpost">Home</a></li>
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['username']; ?> <b

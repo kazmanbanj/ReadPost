@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     // Editor CKEDITOR
+    // text editor
     ClassicEditor
     .create( document.querySelector( '#body' ) )
     .catch( error => {
@@ -8,6 +9,7 @@ $(document).ready(function(){
     } );
 
     // OTHER EDITOR
+    // tick all function
     $('#selectAllBoxes').click(function(event) {
         if(this.checked) {
             $('.checkBoxes').each(function(){
@@ -20,15 +22,12 @@ $(document).ready(function(){
         }
     });
 
-
+    // admin load screen
     var div_box = "<div id='load-screen'><div id='loading'></div></div>";
-
     $("body").prepend(div_box);
-
     $('#load-screen').delay(700).fadeOut(600, function(){
        $(this).remove();
     });
-
 });
 
 function loadUsersOnline() {
@@ -37,6 +36,6 @@ function loadUsersOnline() {
     });
 }
 
-setInterval(function() {
-    loadUsersOnline();
-}, 500)
+// setInterval(function() {
+//     loadUsersOnline();
+// }, 500)
