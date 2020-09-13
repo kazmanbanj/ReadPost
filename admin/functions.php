@@ -14,6 +14,13 @@ function redirect($location)
     exit; // used in place of return
 }
 
+// for the global connection
+function query($query)
+{
+    global $connection;
+    return mysqli_query($connection, $query);
+}
+
 // to request either a post method or a get method
 function ifItIsMethod($method = null)
 {
@@ -34,11 +41,42 @@ function isLoggedIn()
     }
 }
 
+// to check logged in user ids for the like button
+function loggedInUserId()
+{
+    if (isLoggedIn()) {
+        $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] ."'");
+        confirmQuery($result);
+        $user = mysqli_fetch_array($result);
+        if (mysqli_num_rows($result) >= 1) {        //  similar to the tenery operator in userLikedThisPost()
+            return $user['user_id'];
+        }
+    }
+    return false;
+}
+
+// function for a post liked by a user
+function userLikedThisPost($post_id = '')
+{
+    $result = query("SELECT * FROM likes WHERE user_id=" . loggedInUserId() . " AND post_id={$post_id}");
+    confirmQuery($result);
+    return mysqli_num_rows($result) >= 1 ? true : false;
+}
+
+// to check if users is logged in and redirect
 function checkIfUserIsLoggedInAndRedirect($redirectLocation = null)
 {
     if (isLoggedIn()) {
         redirect($redirectLocation);
     }
+}
+
+// fetching all likes
+function getPostLikes($post_id)
+{
+    $result = query("SELECT * FROM likes WHERE post_id = $post_id");
+    confirmQuery($result);
+    echo mysqli_num_rows($result);
 }
 
 // to know counts of users who are online
