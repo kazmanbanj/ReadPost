@@ -66,48 +66,49 @@
                     </h1> -->
 
                     <!-- First Blog Post -->
-                    <h2>
-                        <a href="post/<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
-                    </h2>
-                    <p class="lead">
-                        by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span> Posted on: <?php echo $post_date; ?></p>
-                    <!-- <hr> -->
-                    <a href="post/<?php echo $post_id; ?>">
-                    <img width="250" class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
-                    </a>
-                    <!-- <hr> -->
-                    <p><?php echo $post_content; ?></p>
-                    <a class="btn btn-primary" href="post/<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                    <div style="border: 3px solid #dfdfdf; border-radius: 20px; padding: 10px; word-wrap: break-word;">
+                        <h2>
+                            <a href="post/<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
+                        </h2>
+                        <p class="lead">
+                            by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                        </p>
+                        <p><span class="glyphicon glyphicon-time"></span> Posted on: <?php echo $post_date; ?></p>
+                        <!-- <hr> -->
+                        <a href="post/<?php echo $post_id; ?>">
+                        <img width="250" class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                        </a>
+                        <!-- <hr> -->
+                        <p style="word-wrap:break-word !important;"><?php echo $post_content; ?></p>
+                        <a class="btn btn-primary" href="post/<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
                     <hr>
 
                 <?php } } ?>
-
+                        <!-- pager list -->
+            <ul class="pager">
+                <?php
+                for($i = 1; $i <= $count; $i++) {
+                    if ($i == $page) {
+                        echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+                    } else {
+                        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+                    }
+                }
+                ?>
+            </ul>
                 
 
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
+            <div style="margin-bottom:20px">
             <?php include "includes/sidebar.php"; ?>
+            </div>
 
         </div>
         <!-- /.row -->
 
         <hr>
-
-        <!-- pager list -->
-        <ul class="pager">
-            <?php
-            for($i = 1; $i <= $count; $i++) {
-                if ($i == $page) {
-                    echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
-                } else {
-                    echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                }
-            }
-            ?>
-        </ul>
 
 <?php include "includes/footer.php"; ?>

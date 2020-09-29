@@ -6,7 +6,7 @@
 // $msg = "First line of text \nSecond line of text";
 
 if (isset($_POST['submit'])) {
-    $to = "kazmanbanjoko@yahoo.com";
+    $to = "banjoko2020@gmail.com";
     $subject = wordwrap($_POST['subject'], 70);
     $body = $_POST['body'];
     $header = "From: " . $_POST['email'];

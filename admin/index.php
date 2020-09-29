@@ -11,8 +11,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Welcome to Admin,
-                        <small> <?php echo $_SESSION['username']; ?> </small>
+                        Welcome to Your Dashboard,<?php echo ' ' . strtoupper($_SESSION['username']); ?>
                     </h1>
 
                 </div>
@@ -32,7 +31,7 @@
                                 <div class="col-xs-9 text-right">
 
                                 <!-- for posts counts from functions.php -->
-                                <?php echo "<div class='huge'>" . $post_counts = count_records(get_all_user_posts()) . "</div>" ?>
+                                <div class='huge'><?php echo $post_counts = count_records(get_all_user_posts()); ?></div>
                                     <div>Posts</div>
                                 </div>
                             </div>
@@ -82,7 +81,7 @@
                                 <div class="col-xs-9 text-right">
 
                                 <!-- for categories counts from functions.php -->
-                                    <?php echo "<div class='huge'>" . $category_counts = count_records(get_all_user_categories()) . "</div>" ?>
+                                <div class='huge'><?php echo $category_counts = count_records(get_all_user_categories()); ?></div>
                                     <div>Categories</div>
                                 </div>
                             </div>
@@ -127,7 +126,7 @@
                 <?php
                 $element_text = ['All Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Approved Comments', 'Pending Comments', 'Categories'];
                 $element_count = [$post_counts, $post_published_counts, $post_draft_counts, $comment_counts, $approved_comments_count, $unapproved_comments_count, $category_counts];
-
+                
                 for($i=0; $i<7; $i++) {
                     echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}]";
                 }

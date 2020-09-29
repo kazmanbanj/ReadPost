@@ -37,6 +37,7 @@
                 </h1>
 
                 <!-- First Blog Post -->
+                <div style="border: 3px solid #dfdfdf; border-radius: 20px; padding: 10px; word-wrap: break-word;">
                 <h2>
                     <a href="/readpost/post/<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
@@ -49,6 +50,7 @@
                 <hr>
                 <p><?php echo $post_content; ?></p>
                 <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
+                </div>
 
                 <hr>
                 <!-- to edit the post on the post view -->

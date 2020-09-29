@@ -39,12 +39,12 @@ if(isset($_POST['create_post'])) {
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">Post Title</label>
-        <input type="text" class="form-control" name="title">
+        <input type="text" class="form-control" name="title" required>
     </div>
 
     <div class="form-group">
         <label for="post_category">Category</label>
-        <select name="post_category" id="">
+        <select name="post_category" id="" required>
             <?php
                 $query = "SELECT * FROM categories";
                 $select_post_category = mysqli_query($connection, $query);
@@ -61,7 +61,7 @@ if(isset($_POST['create_post'])) {
 
     <div class="form-group">
         <label for="post_user">Users</label>
-        <select name="post_user" id="">
+        <select name="post_user" id="" required>
             <?php
                 $query = "SELECT * FROM users";
                 $select_post_user = mysqli_query($connection, $query);
@@ -75,15 +75,10 @@ if(isset($_POST['create_post'])) {
             ?>
         </select>
     </div>
-    
-    <!-- <div class="form-group">
-        <label for="author">Post Author</label>
-        <input type="text" class="form-control" name="author">
-    </div> -->
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <select name="post_status" id="">
+        <select name="post_status" id="" required>
             <option value="draft">Select Option</option>
             <option value="published">Published</option>
             <option value="draft">Draft</option>
@@ -102,7 +97,7 @@ if(isset($_POST['create_post'])) {
 
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea class="form-control " name="post_content" id="body" cols="30" rows="10">
+        <textarea class="form-control " name="post_content" id="body" cols="30" rows="10" required>
          </textarea>
     </div>
 

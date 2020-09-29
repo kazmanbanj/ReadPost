@@ -79,13 +79,18 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a>
-            </li>
-            <li>
-                <a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
-            </li>
-            <li>
+
+            <?php
+            if (is_admin($_SESSION['username'])) {
+                echo '<li><a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>'
+            ;}
+            ?>
+            
+            <li><a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a></li>
+            
+            <?php
+            if (is_admin($_SESSION['username'])) {
+                echo '<li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
                     Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
@@ -96,7 +101,10 @@
                         <a href="users.php?source=add_user">Add User</a>
                     </li>
                 </ul>
-            </li>
+            </li>'
+            ;}
+            ?>
+            
             <li>
                 <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a>
             </li>

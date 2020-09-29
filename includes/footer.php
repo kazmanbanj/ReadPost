@@ -1,5 +1,5 @@
         <!-- Footer -->
-        <footer>
+        <footer class="text-center">
             <div class="row">
                 <div class="col-lg-12">
                     <p>Copyright &copy; ReadPost by Banjoko Kazeem</p>
