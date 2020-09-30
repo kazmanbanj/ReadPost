@@ -9,6 +9,7 @@
         </button>
         <a class="navbar-brand" href="/readpost">ReadPost Admin</a>
     </div>
+
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
         <?php
@@ -37,7 +38,7 @@
         <!-- <li><a href="http://">Users Online: <?php //echo $count_user; ?></a></li> -->
 
         <!-- this for instant online users -->
-        <li><a href="http://">Users Online: <span class="usersonline"></span></a></li>
+        <li><a href="">Users Online: <span class="usersonline"></span></a></li>
         <li><a href="/readpost">Home</a></li>
 
         <li class="dropdown">
@@ -68,7 +69,7 @@
             <?php endif; ?>
 
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i>
+                <a href="#" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i>
                     Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts_dropdown" class="collapse">
                     <li>
@@ -80,18 +81,15 @@
                 </ul>
             </li>
 
-            <?php
-            if (is_admin($_SESSION['username'])) {
-                echo '<li><a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>'
-            ;}
-            ?>
-            
+            <?php if (is_admin()): ?>
+            <li><a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>
+            <?php endif; ?>
+
             <li><a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a></li>
             
-            <?php
-            if (is_admin($_SESSION['username'])) {
-                echo '<li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
+            <?php if (is_admin()): ?>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
                     Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
@@ -101,9 +99,8 @@
                         <a href="users.php?source=add_user">Add User</a>
                     </li>
                 </ul>
-            </li>'
-            ;}
-            ?>
+            </li>  
+            <?php endif; ?>
             
             <li>
                 <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a>

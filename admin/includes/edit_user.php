@@ -12,7 +12,7 @@ if(isset($_GET['edit_user'])) {
         $user_password = $row['user_password'];
         $user_firstname = $row['user_firstname'];
         $user_lastname = $row['user_lastname'];               
-        $user_email = $row['user_email'];
+        // $user_email = $row['user_email'];
         $user_image = $row['user_image'];
         $user_role = $row['user_role'];
     }
@@ -24,24 +24,24 @@ if(isset($_POST['edit_user'])) {
     $user_lastname = $_POST['user_lastname'];
     $user_role = $_POST['user_role'];
 
-    // $post_image = $_FILES['image']['name'];
-    // $post_image_temp = $_FILES['image']['tmp_name'];
+    $user_image = $_FILES['image']['name'];
+    $user_image_temp = $_FILES['image']['tmp_name'];
 
     $username = $_POST['username'];
-    $user_email = $_POST['user_email'];
-    $user_password = $_POST['user_password'];
+    // $user_email = $_POST['user_email'];
+    // $user_password = $_POST['user_password'];
 
-    // move_uploaded_file($post_image_temp, "../images/$post_image");
+    move_uploaded_file($user_image_temp, "../images/profile/$user_image");
 
     // this to edit the password and encrypt it in db
-    $query = "SELECT randSalt FROM users";
-    $select_randsalt_query = mysqli_query($connection, $query);
-    if(!$select_randsalt_query) {
-        die("Query Failed" . mysqli_error($connection));
-    }
-    $row = mysqli_fetch_array($select_randsalt_query);
-    $salt = $row['randSalt'];
-    $hashed_password = crypt($user_password, $salt);
+    // $query = "SELECT randSalt FROM users";
+    // $select_randsalt_query = mysqli_query($connection, $query);
+    // if(!$select_randsalt_query) {
+    //     die("Query Failed" . mysqli_error($connection));
+    // }
+    // $row = mysqli_fetch_array($select_randsalt_query);
+    // $salt = $row['randSalt'];
+    // $hashed_password = crypt($user_password, $salt);
 
     // the above password encryption OR this below
 
@@ -64,8 +64,8 @@ if(isset($_POST['edit_user'])) {
     $query .= "user_lastname = '{$user_lastname}', ";
     $query .= "user_role = '{$user_role}', ";
     $query .= "username = '{$username}', ";
-    $query .= "user_email = '{$user_email}', ";
-    $query .= "user_password = '{$hashed_password}' ";
+    $query .= "user_image = '{$user_image}' ";
+    // $query .= "user_password = '{$hashed_password}' ";
     $query .= "WHERE user_id = {$the_user_id}";
 
     $edit_user_query = mysqli_query($connection, $query);
@@ -113,14 +113,14 @@ if(isset($_POST['edit_user'])) {
         <input type="text" value="<?php echo $username; ?>" class="form-control" name="username">
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="user_email">Email</label>
-        <input type="email" value="<?php echo $user_email; ?>" class="form-control" name="user_email">
-    </div>
+        <input type="email" value="<?php //echo $user_email; ?>" class="form-control" name="user_email">
+    </div> -->
 
     <div class="form-group">
-        <label for="user_password">Password</label>
-        <input type="password" autocomplete="off" class="form-control" name="user_password">
+        <label for="image">Image</label>
+        <input type="file" class="form-control" name="image">
     </div>
 
     <div class="form-group">

@@ -1,4 +1,13 @@
 <?php include "includes/admin_header.php" ?>
+<?php
+$post_count = count_records(get_all_user_posts());
+$comment_count = count_records(get_all_posts_user_comments());
+$category_count = count_records(get_all_user_categories());
+$post_published_count = count_records(get_all_user_published_posts());
+$post_draft_count = count_records(get_all_user_draft_posts());
+$approved_comment_count = count_records(get_all_user_approved_posts_comments());
+$unapproved_comment_count = count_records(get_all_user_unapproved_posts_comments());
+?>
 
 <div id="wrapper">
 <!-- Navigation -->
@@ -31,7 +40,7 @@
                                 <div class="col-xs-9 text-right">
 
                                 <!-- for posts counts from functions.php -->
-                                <div class='huge'><?php echo $post_counts = count_records(get_all_user_posts()); ?></div>
+                                <?php echo  "<div class='huge'>".$post_count."</div>" ?>
                                     <div>Posts</div>
                                 </div>
                             </div>
@@ -56,8 +65,7 @@
                                 <div class="col-xs-9 text-right">
                                 
                                 <!-- for comments counts from functions.php -->
-                                <div class='huge'><?php echo $comment_counts = count_records(get_all_posts_user_comments()); ?></div>
-                                
+                                <?php echo  "<div class='huge'>{$comment_count}</div>" ?>                                
                                 <div>Comments</div>
                                 </div>
                             </div>
@@ -81,7 +89,7 @@
                                 <div class="col-xs-9 text-right">
 
                                 <!-- for categories counts from functions.php -->
-                                <div class='huge'><?php echo $category_counts = count_records(get_all_user_categories()); ?></div>
+                                <?php echo  "<div class='huge'>{$category_count}</div>" ?>
                                     <div>Categories</div>
                                 </div>
                             </div>
@@ -102,13 +110,13 @@
 
     // this is for the dynamic data in the bar chart below
 
-    $post_published_counts = count_records(get_all_user_published_posts());
+    // $post_published_counts = count_records(get_all_user_published_posts());
 
-    $post_draft_counts = count_records(get_all_user_draft_posts());
+    // $post_draft_counts = count_records(get_all_user_draft_posts());
 
-    $approved_comments_count = count_records(get_all_user_approved_posts());
+    // $approved_comments_count = count_records(get_all_user_approved_posts());
 
-    $unapproved_comments_count = count_records(get_all_user_unapproved_posts());
+    // $unapproved_comments_count = count_records(get_all_user_unapproved_posts());
     
     ?>
     
@@ -124,8 +132,8 @@
                 ['Data', 'Count'],
 
                 <?php
-                $element_text = ['All Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Approved Comments', 'Pending Comments', 'Categories'];
-                $element_count = [$post_counts, $post_published_counts, $post_draft_counts, $comment_counts, $approved_comments_count, $unapproved_comments_count, $category_counts];
+                $element_text = ['All Posts','Active Posts','Draft Posts', 'Comments','Approved Comments','Pending Comments', 'Categories'];
+                $element_count = [$post_count,$post_published_count, $post_draft_count, $comment_count, $approved_comment_count, $unapproved_comment_count,$category_count];
                 
                 for($i=0; $i<7; $i++) {
                     echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}]";

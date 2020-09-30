@@ -41,14 +41,18 @@
                     </li>  -->
 
                     <?php if (isLoggedIn()): ?>
-                        <li>
-                            <a href="/readpost/admin">Admin</a>
-                        </li>
-                        <li>
-                            <a href="/readpost/includes/logout.php">Logout</a>
-                        </li>
-                        <li>
-                            <a href='/readpost/admin'>Welcome, <?php echo $_SESSION["username"]; ?></a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Welcome, <?php echo $_SESSION['username']; ?> <b
+                                    class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/readpost/admin"><i class="fa fa-fw fa-user"></i> Dashboard</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/readpost/includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                </li>
+                            </ul>
                         </li>
                     <?php else: ?>
                         <li>

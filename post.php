@@ -105,9 +105,7 @@ if(isset($_POST['unliked'])) {
             </p>
             <p><span class="glyphicon glyphicon-time"></span> Posted on: <?php echo $post_date; ?> </p>
             <p><?php echo "$post_view_counts"; ?> views</p>
-            <hr>
             <img width="250" class="img-responsive" src="/readpost/images/<?php echo $post_image; ?>" alt="">
-            <hr>
             <p><?php echo $post_content; ?></p>
             <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
             </div>
@@ -115,7 +113,7 @@ if(isset($_POST['unliked'])) {
             <hr>
                 <!-- to edit the post on the post view -->
                 <?php
-                    if(isset($_SESSION['user_role'])) {
+                    if(is_admin($_SESSION['user_role'])) {
                         if(isset($_GET['p_id'])) {
                             $the_post_id = $_GET['p_id'];
                             echo "<b><a href='/readpost/admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit &nbsp;</a> &nbsp;&nbsp;" ;
@@ -202,6 +200,7 @@ if(isset($_POST['unliked'])) {
             <hr>
 
             <!-- Posted Comments -->
+            <h3><u>Comments</u></h3">
             <?php
 
             // fetching and displaying the approved comments
@@ -228,7 +227,7 @@ if(isset($_POST['unliked'])) {
                     </h4>
                     <?php echo $comment_content; ?>
                 </div>
-            </div>
+            </div><hr>
             <?php } } } else {
                 header("Location: index.php");
             }

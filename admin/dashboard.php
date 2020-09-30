@@ -1,4 +1,10 @@
 <?php include "includes/admin_header.php" ?>
+<!-- to restrict certain pages to admins only e.g.users.php -->
+<?php
+if (!is_admin($_SESSION['username'])) {
+    header("Location: index.php");
+}
+?>
 
     <div id="wrapper">
 

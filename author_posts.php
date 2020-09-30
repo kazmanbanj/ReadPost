@@ -31,11 +31,6 @@
 
                         ?>
 
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
-
                 <!-- First Blog Post -->
                 <div style="border: 3px solid #dfdfdf; border-radius: 20px; padding: 10px; word-wrap: break-word;">
                 <h2>
@@ -55,7 +50,7 @@
                 <hr>
                 <!-- to edit the post on the post view -->
                 <?php
-                    if(isset($_SESSION['user_role'])) {
+                    if(is_admin($_SESSION['user_role'])) {
                         if(isset($_GET['p_id'])) {
                             $the_post_id = $_GET['p_id'];
                             echo "<b><a href='admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit post</a></b>";
