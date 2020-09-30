@@ -28,12 +28,14 @@ function query($query)
 // func for fetching records
 function fetchRecords($result)
 {
+    global $connection;
     return mysqli_fetch_array($result);
 }
 
 // counting records from the database
 function count_records($result)
 {
+    global $connection;
     return mysqli_num_rows($result);
 }
 //========== END DATABASE HELPER FUNCTIONS ==========//
