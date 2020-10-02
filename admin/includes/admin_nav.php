@@ -69,11 +69,18 @@
             <?php endif; ?>
 
             <li>
-                <a href="#" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i>
+                <a href="javascript:void(0);" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i>
                     Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts_dropdown" class="collapse">
+
+                    <?php if (is_admin()): ?>
                     <li>
                         <a href="./posts.php">View All Posts</a>
+                    </li>
+                    <?php endif; ?>
+                    
+                    <li>
+                        <a href="posts.php?source=view_my_posts">View My Posts</a>
                     </li>
                     <li>
                         <a href="posts.php?source=add_post">Add new post</a>
@@ -85,7 +92,11 @@
             <li><a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>
             <?php endif; ?>
 
+            <?php if (is_admin()): ?>
             <li><a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a></li>
+            <?php endif; ?>
+
+            <li><a href="./comments.php?source=view_my_comments"><i class="fa fa-fw fa-file"></i> My Comments</a></li>
             
             <?php if (is_admin()): ?>
             <li>

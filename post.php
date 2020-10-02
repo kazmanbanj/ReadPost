@@ -222,10 +222,12 @@ if(isset($_POST['unliked'])) {
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading"><?php echo $comment_author; ?>
-                        <small><?php echo $comment_date; ?></small>
+                    <h4 class="media-heading">by: <?php echo $comment_author; ?>
+                        <small>on <?php echo $comment_date; ?></small>
                     </h4>
+                    <p>
                     <?php echo $comment_content; ?>
+                    </p>
                 </div>
             </div><hr>
             <?php } } } else {

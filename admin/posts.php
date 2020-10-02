@@ -34,8 +34,8 @@ if(isset($_GET['source'])) {
         include 'includes/edit_post.php';
         break;
 
-        case '34';
-        echo 'nice';
+        case 'view_my_posts';
+        include 'includes/view_my_posts.php';
         break;
 
         default:

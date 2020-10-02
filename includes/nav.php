@@ -36,9 +36,9 @@
                         echo "<li class='$category_class'><a href='/readpost/category/$cat_id'>{$cat_title}</a></li>";
                     }
                     ?>                    
-                    <!-- <li>
+                    <li>
                         <a href="/readpost/contact">Contact</a>
-                    </li>  -->
+                    </li> 
 
                     <?php if (isLoggedIn()): ?>
                         <li class="dropdown">

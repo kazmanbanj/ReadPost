@@ -10,6 +10,7 @@ while($row = mysqli_fetch_assoc($select_posts_by_id)) {
     // gotten from the database
     $post_id = $row['post_id'];
     $post_user = $row['post_user'];
+    $user_id = $row['user_id'];
     $post_title = $row['post_title'];
     $post_category_id = $row['post_category_id'];
     $post_status = $row['post_status'];
@@ -25,6 +26,7 @@ if(isset($_POST['update_post']))  {
     // gotten from the form
     $post_title = $_POST['post_title'];
     $post_category_id = $_POST['post_category'];
+    $user_id = $_POST['user_id'];
     $post_user = $_POST['post_user'];
     $post_status = $_POST['post_status'];
     $post_image = $_FILES['image']['name'];
@@ -49,6 +51,7 @@ if(isset($_POST['update_post']))  {
     $query .= "post_category_id = '{$post_category_id}', ";
     $query .= "post_date = now(), ";
     $query .= "post_user = '{$post_user}', ";
+    $query .= "user_id = '{$user_id}', ";
     $query .= "post_status = '{$post_status}', ";
     $query .= "post_tags = '{$post_tags}', ";
     $query .= "post_content = '{$post_content}', ";
@@ -58,7 +61,7 @@ if(isset($_POST['update_post']))  {
     $update_post = mysqli_query($connection, $query);
     confirmQuery($update_post);
 
-    echo "<p class='alert alert-success'>Post Updated.<a href='../post.php?p_id={$the_post_id}'> View Post</a> /<a href='posts.php'> Edit More Posts</a></p>";
+    echo "<p class='alert alert-success'>Post Updated.<a href='../post.php?p_id={$the_post_id}'> View Post</a> /<a href='posts.php?source=view_my_posts'> Edit More Posts</a></p>";
 }
 
 ?>
@@ -106,9 +109,9 @@ if(isset($_POST['update_post']))  {
     </div> -->
     
     <div class="form-group">
-        <label for="post_user">Users</label>
+        <label for="post_user">Username</label>
         <select name="post_user" id="">
-            <?php echo "<option value='{$post_user}'>$post_user</option>"; ?>
+            <?php //echo "<option value='{$post_user}'>$post_user</option>"; ?>
             <?php
                 $query = "SELECT * FROM users";
                 $select_post_user = mysqli_query($connection, $query);
@@ -118,6 +121,24 @@ if(isset($_POST['update_post']))  {
                 $username = $row['username'];
 
                 echo "<option value='{$username}'>$username</option>";
+                }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="user_id">User_id</label>
+        <select name="user_id" id="">
+            <?php //echo "<option value='{$post_user}'>$post_user</option>"; ?>
+            <?php
+                $query = "SELECT * FROM users";
+                $select_post_user = mysqli_query($connection, $query);
+                confirmQuery($select_post_user);
+                while($row = mysqli_fetch_assoc($select_post_user)) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+
+                echo "<option value='{$user_id}'>$username</option>";
                 }
             ?>
         </select>

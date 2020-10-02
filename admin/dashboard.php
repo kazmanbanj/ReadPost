@@ -1,4 +1,4 @@
-<?php include "includes/admin_header.php" ?>
+<?php include "includes/admin_header.php"; ?>
 <!-- to restrict certain pages to admins only e.g.users.php -->
 <?php
 if (!is_admin($_SESSION['username'])) {
@@ -41,7 +41,15 @@ if (!is_admin($_SESSION['username'])) {
 
                                     <!-- for posts counts from functions.php -->
 
-                                <div class='huge'><?php echo $post_counts = recordCount('posts'); ?></div>
+                                    <?php 
+
+                                    $query = "SELECT * FROM posts";
+                                    $select_all_post = mysqli_query($connection,$query);
+                                    $post_count = mysqli_num_rows($select_all_post);
+
+                                    echo  "<div class='huge'>{$post_count}</div>"
+
+                                    ?>
                                         <div>Posts</div>
                                     </div>
                                 </div>
@@ -66,7 +74,15 @@ if (!is_admin($_SESSION['username'])) {
                                     <div class="col-xs-9 text-right">
                                     
                                     <!-- for comments counts -->
-                                    <div class='huge'><?php echo $comment_counts = recordCount('comments'); ?></div>
+                                    <?php 
+
+                                    $query = "SELECT * FROM comments";
+                                    $select_all_comments = mysqli_query($connection,$query);
+                                    $comment_count = mysqli_num_rows( $select_all_comments);
+
+                                  echo  "<div class='huge'>{$comment_count}</div>"
+
+                                    ?>
                                     
                                     <div>Comments</div>
                                     </div>
@@ -93,7 +109,15 @@ if (!is_admin($_SESSION['username'])) {
 
                                     <!-- for users counts -->
 
-                                    <div class='huge'><?php echo $user_counts = recordCount('users'); ?></div>
+                                    <?php 
+
+                                        $query = "SELECT * FROM users";
+                                        $select_all_users = mysqli_query($connection,$query);
+                                        $user_count = mysqli_num_rows($select_all_users);
+
+                                      echo  "<div class='huge'>{$user_count}</div>"
+
+                                        ?>
                                         <div> Users</div>
                                     </div>
                                 </div>
@@ -117,7 +141,15 @@ if (!is_admin($_SESSION['username'])) {
                                     <div class="col-xs-9 text-right">
 
                                     <!-- for categories counts -->
-                                        <div class='huge'><?php echo $category_counts = recordCount('categories'); ?></div>
+                                        <?php 
+
+                                    $query = "SELECT * FROM categories";
+                                    $select_all_categories = mysqli_query($connection,$query);
+                                    $category_count = mysqli_num_rows($select_all_categories);
+
+                                  echo  "<div class='huge'>{$category_count}</div>"
+
+                                    ?>
                                         <div>Categories</div>
                                     </div>
                                 </div>

@@ -45,7 +45,7 @@ $unapproved_comment_count = count_records(get_all_user_unapproved_posts_comments
                                 </div>
                             </div>
                         </div>
-                        <a href="posts.php">
+                        <a href="posts.php?source=view_my_posts">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -70,7 +70,7 @@ $unapproved_comment_count = count_records(get_all_user_unapproved_posts_comments
                                 </div>
                             </div>
                         </div>
-                        <a href="comments.php">
+                        <a href="comments.php?source=view_my_comments">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

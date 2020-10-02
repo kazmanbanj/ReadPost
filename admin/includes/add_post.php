@@ -60,25 +60,9 @@ if(isset($_POST['create_post'])) {
     </div>
 
     <div class="form-group">
-        <label for="user_id">Users</label>
-        <select name="user_id" id="" required>
-            <?php
-                $query = "SELECT * FROM users";
-                $select_post_user = mysqli_query($connection, $query);
-                confirmQuery($select_post_user);
-                while($row = mysqli_fetch_assoc($select_post_user)) {
-                $user_id = $row['user_id'];
-                $username = $row['username'];
-
-                echo "<option value='{$user_id}'>$username</option>";
-                }
-            ?>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="post_user">Users</label>
+        <label for="post_user">Username</label>
         <select name="post_user" id="" required>
+            <?php //echo "<option value='{$post_user}'>$post_user</option>"; ?>
             <?php
                 $query = "SELECT * FROM users";
                 $select_post_user = mysqli_query($connection, $query);
@@ -88,6 +72,24 @@ if(isset($_POST['create_post'])) {
                 $username = $row['username'];
 
                 echo "<option value='{$username}'>$username</option>";
+                }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="user_id">User id</label>
+        <select name="user_id" id="" required>
+            <?php //echo "<option value='{$post_user}'>$post_user</option>"; ?>
+            <?php
+                $query = "SELECT * FROM users";
+                $select_post_user = mysqli_query($connection, $query);
+                confirmQuery($select_post_user);
+                while($row = mysqli_fetch_assoc($select_post_user)) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+
+                echo "<option value='{$user_id}'>$username</option>";
                 }
             ?>
         </select>

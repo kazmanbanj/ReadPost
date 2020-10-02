@@ -96,16 +96,21 @@ if(isset($_POST['checkBoxArray'])) {
             <?php
 
             // $query = "SELECT * FROM posts ORDER BY post_id DESC";
-            $query = "SELECT posts.post_id, posts.post_author, posts.post_user, posts.post_title, posts.post_category_id, posts.post_status, ";
+            $query = "SELECT posts.post_id, posts.post_user, posts.post_title, posts.post_category_id, posts.post_status, ";
             $query .= "posts.post_image, posts.post_tags, posts.post_comment_count, posts.post_date, posts.post_view_counts, ";
             $query .= "categories.cat_id, categories.cat_title";
             $query .= " FROM posts ";
             $query .= "LEFT JOIN categories ON posts.post_category_id = categories.cat_id ORDER BY posts.post_id DESC";
 
             $select_posts = mysqli_query($connection, $query);
+
+            // in case no post is available yet
+            if (mysqli_num_rows($select_posts) < 1) {
+                echo "<br><br><h1 class='text-center'>NO POSTS YET</h1><br>";
+            } else {
             while($row = mysqli_fetch_assoc($select_posts)) {
                 $post_id = $row['post_id'];
-                $post_author = $row['post_author'];
+                // $post_author = $row['post_author'];
                 $post_user = $row['post_user'];
                 $post_title = $row['post_title'];
                 $post_category_id = $row['post_category_id'];
@@ -126,9 +131,7 @@ if(isset($_POST['checkBoxArray'])) {
             <?php
                 echo "<td>$post_id </td>";
 
-                if (!empty($post_author)) {
-                    echo "<td>$post_author </td>";
-                } elseif (!empty($post_user)) {
+                if (!empty($post_user)) {
                     echo "<td>$post_user </td>";
                 } 
 
@@ -163,22 +166,22 @@ if(isset($_POST['checkBoxArray'])) {
                 ?>
 
                 <!-- this is to delete a post -->
-                <form action="" method="post">
-                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                <!-- <form action="" method="post">
+                    <input type="hidden" name="post_id" value="<?php //echo $post_id; ?>">
 
                     <?php
-                    echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
+                    //echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
                     ?>
 
-                </form>
+                </form> -->
 
                 <?php
-                // echo "<td><a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
-                // echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" href='posts.php?delete={$post_id}'>Delete</a></td>";
+                //echo "<td><a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
+                echo "<td><a class='btn btn-danger' onClick=\"javascript: return confirm('Are you sure you want to delete'); \" href='posts.php?delete={$post_id}'>Delete</a></td>";
                 echo "<td><a onClick=\"javascript: return confirm('Do you want to reset views to 0'); \" href='posts.php?reset={$post_id}'>$post_view_counts</a></td>";
                 echo "</tr>";
             }
-
+        }
         ?>
         </tbody>
     </table>
@@ -187,7 +190,7 @@ if(isset($_POST['checkBoxArray'])) {
 <?php
 
 // to delete a post
-if(isset($_POST['delete'])) {
+if(isset($_GET['delete'])) {
     $the_post_id = $_POST['post_id'];
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
     $delete_query = mysqli_query($connection, $query);
