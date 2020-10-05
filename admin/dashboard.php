@@ -202,15 +202,15 @@ if (!is_admin($_SESSION['username'])) {
                 ]);
 
                 var options = {
-                chart: {
-                    title: '',
-                    subtitle: '',
-                }
+                    chart: {
+                        title: '',
+                        subtitle: '',
+                    }
                 };
 
                 var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+                chart.draw(data, options);
             }
         </script>
         <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>

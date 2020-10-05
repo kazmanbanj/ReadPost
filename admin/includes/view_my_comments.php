@@ -1,6 +1,10 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
+            <?php if (is_admin()): ?>
+                <th>Id</th>
+            <?php endif; ?>
+            
             <th>Author</th>
             <th>Comment</th>
             <th>Email</th>
@@ -11,7 +15,6 @@
                 <th>Status</th>
                 <th>Approve</th>
                 <th>Unapprove</th>
-                <th>Id</th>
             <?php endif; ?>
 
             <!-- <th>Edit</th> -->
@@ -36,6 +39,9 @@
                 $comment_date = $row['comment_date'];
 
                 echo "<tr>";
+                if (is_admin()):
+                echo "<td>$comment_id </td>";
+                endif;
                 echo "<td>$comment_author </td>";
                 echo "<td>$comment_content </td>";
                 echo "<td>$comment_email </td>";
@@ -58,7 +64,6 @@
                     echo "<td>$comment_status </td>";
                     echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
                     echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
-                    echo "<td>$comment_id </td>";
             endif;
 
                 // echo "<td><a href='#'>Edit</a></td>";

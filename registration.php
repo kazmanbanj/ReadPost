@@ -2,6 +2,19 @@
 <?php  include "includes/header.php"; ?>
 
 <?php
+
+require 'vendor/autoload.php';
+
+// $app_key = "73c2aa7e017c09515ace";
+// $app_secret = "7f5d5e82c7821a82cbd0";
+// $app_id = "1083820";
+$options = array(
+    'cluster' => 'us2',
+    'encrypted' => true
+  );
+
+$pusher = new Pusher\Pusher( '73c2aa7e017c09515ace', '7f5d5e82c7821a82cbd0', '1083820', $options );
+
 // this is to get the data fom the reg form and post to the db
 // if (isset($_POST['submit'])) {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -53,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (empty($error)) {
         register_user($username, $email, $password);
+
         login_users($username, $password);
     }
 }
