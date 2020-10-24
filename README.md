@@ -3,7 +3,7 @@
 # live link
 # https://readpostapp.000webhostapp.com/
 
-# PREVIEWS <hr>
+# Previews of the ReadPostApp<hr>
 ![read1](https://user-images.githubusercontent.com/58645797/97095740-c035bd80-160f-11eb-96bf-53215a3d1147.png)<br><br><hr><br>
 # live link: https://readpostapp.000webhostapp.com/
 ![read2](https://user-images.githubusercontent.com/58645797/97095741-c2981780-160f-11eb-9810-dd6e288b6b24.png)<br><br><hr><br>
